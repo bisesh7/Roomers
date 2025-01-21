@@ -1,0 +1,45 @@
+.jumbotron,
+.jumbotronImage {
+  width: 100%;
+  height: fit-content;
+  border-radius: 12px;
+  filter: drop-shadow(0px 4px 3px rgb(206, 206, 206));
+}
+
+.jumbotron:after {
+  content: "";
+  position: absolute;
+  display: block;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0)
+    linear-gradient(to bottom, rgba(0, 0, 0, 0) 0px, rgba(0, 0, 0, 0.6) 100%)
+    repeat 0 0;
+  z-index: 1;
+  opacity: 0.8;
+  border-radius: 12px;
+}
+
+.jumbotronText {
+  color: white;
+}
+
+.jumbotronSlogan {
+  font-weight: 600;
+  font-size: 3.4rem;
+}
+
+.jumbotronContent {
+  display: block;
+  position: absolute;
+  width: 100%;
+  color: #fff;
+  left: 0;
+  bottom: 0;
+  padding: 2em;
+  z-index: 2;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}

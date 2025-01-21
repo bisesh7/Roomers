@@ -1,0 +1,51 @@
+/* Pagination.module.css */
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.pagination li {
+  border: none;
+  background: none;
+  margin: 0;
+}
+
+.pagination li a {
+  color: #333; /* Default text color */
+  border: none;
+  padding: 8px 12px;
+  font-size: 16px;
+  background-color: transparent;
+}
+
+.active span {
+  background-color: #f1f3f5 !important; /* Light gray background for active */
+  color: black !important;
+  border-color: #f1f3f5 !important;
+  border-radius: 50%; /* Make the active item a circle */
+  transform: scale(1.1);
+}
+
+.pagination li a:hover {
+  text-decoration: none;
+  transform: scale(1.06);
+  color: #333 !important;
+}
+
+.pagination li.disabled a {
+  color: #ccc; /* Disabled color for prev/next buttons */
+}
+
+.pagination li a {
+  padding: 8px;
+}
+
+.changeButton {
+  cursor: pointer;
+}
+
+.changeButton:hover {
+  transform: scale(1.3);
+}

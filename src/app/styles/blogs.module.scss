@@ -1,0 +1,31 @@
+.blogsListImage {
+  border-radius: 12px;
+  width: 100%;
+  height: 40%;
+}
+
+.blogsListElement {
+  position: relative;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+
+.blogsListElement:hover {
+  transform: scale(1.05);
+}
+
+.date {
+  position: absolute;
+  bottom: 2px;
+}
+
+.blogsPage {
+  min-height: 100vh;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.blogsContainer {
+  flex: 1;
+}

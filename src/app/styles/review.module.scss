@@ -1,0 +1,48 @@
+.star {
+  cursor: pointer;
+}
+
+.container {
+  border: dashed;
+  border-color: #f0f2f5;
+  border-width: 3px;
+  border-radius: 12px;
+  outline: none;
+  transition: "border .24s ease-in-out";
+}
+
+.reviewInput {
+  width: 100%;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  background-color: transparent !important;
+  margin-left: 0;
+  padding-left: 12px;
+  border-radius: 12px;
+  border-color: #dee2e6 !important;
+}
+
+.reviewInput:focus {
+  outline-color: none;
+  box-shadow: none;
+  border-radius: 12px;
+}
+
+.tag {
+  border-radius: 12px;
+  background-color: #f0f2f5;
+}
+
+.propertyImage {
+  width: 60px;
+  height: 60px;
+}
+
+.reviewCard {
+  cursor: pointer;
+  transition: transform 0.3s ease-in-out;
+}
+
+.reviewCard:hover {
+  transform: scale(1.05);
+}
