@@ -1,9 +1,3 @@
-Below is a sample `README.md` for your project. You can customize it further to suit your specific needs, additional features, or instructions.
-
----
-
-# Roomers Front
-
 **Live Demo:** [roomers.space](https://roomers.space)
 
 This is a **Next.js** application built with React, Firebase, and various libraries to facilitate user authentication, form handling, styling, and more. It aims to provide a platform for users to share and find rental reviews.
