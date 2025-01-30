@@ -26,6 +26,7 @@ import {
 import { db } from "../../../firebase/firebaseConfig";
 import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { useRouter } from "next/navigation";
 
 const reviewSchema = Yup.object().shape({
   landlordName: Yup.string(), // Optional field
@@ -119,6 +120,7 @@ const Page = () => {
 
   const [starHoverNumber, setStarHoverNumber] = useState<number>(0);
   const [files, setFiles] = useState<FileWithPreview[]>([]);
+  const router = useRouter();
 
   const { getRootProps, getInputProps } = useDropzone({
     multiple: true,
@@ -522,6 +524,9 @@ const Page = () => {
                   variant="secondary"
                   className={classNames(common.button, "me-2")}
                   type="button"
+                  onClick={() => {
+                    router.push("/");
+                  }}
                 >
                   Cancel
                 </Button>

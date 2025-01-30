@@ -40,6 +40,7 @@ interface Review {
   overallRating: number;
   propertyAddress: string;
   reviewerName: string;
+  userId: string;
 }
 
 // Helper function to calculate rating percentages
@@ -94,6 +95,7 @@ const Page = ({}) => {
   });
   const [currentPage, setCurrentPage] = useState<number>(1);
   const searchParams = useSearchParams();
+  const [hasReviewed, setHasReviewed] = useState(false);
 
   useEffect(() => {
     const id = searchParams.get("id");
@@ -112,9 +114,10 @@ const Page = ({}) => {
     };
 
     const fetchReviews = async (id: string) => {
+      const propertyRef = doc(db, "properties", id);
       const q = query(
         collection(db, "reviews"),
-        where("propertyAddress", "==", doc(db, "properties", id))
+        where("propertyAddress", "==", propertyRef)
       );
       const querySnapshot = await getDocs(q);
       const reviewsData: Review[] = querySnapshot.docs.map(
@@ -141,6 +144,17 @@ const Page = ({}) => {
   const currentReviews = reviews.slice(indexOfFirstReview, indexOfLastReview);
 
   const [experience, setExperience] = useState<string>("");
+
+  useEffect(() => {
+    if (user && reviews.length > 0) {
+      const userHasReviewed = reviews.some(
+        (review) => review.userId === user.uid
+      );
+      setHasReviewed(userHasReviewed);
+    } else {
+      setHasReviewed(false);
+    }
+  }, [user, reviews]);
 
   return (
     <div>
@@ -233,7 +247,7 @@ const Page = ({}) => {
           </div>
         ))}
 
-        {user && !loading && (
+        {user && !loading && !hasReviewed && (
           <div className="d-flex mt-4">
             <Image
               src="https://picsum.photos/200"
@@ -242,7 +256,6 @@ const Page = ({}) => {
               height={200}
               className={classNames(profileStyles.roundPic)}
             />
-
             <ReviewInput
               handleSearch={() => {}}
               placeholder="Share your experience with the landlord"
