@@ -17,7 +17,7 @@ import navbarStyles from "../../styles/navbar.module.scss";
 import common from "../../styles/common.module.scss";
 import searchBarStyles from "../../styles/searchbar.module.scss";
 import styles from "../../styles/auth.module.scss";
-import { BsApple, BsFacebook, BsGoogle } from "react-icons/bs";
+import { BsGoogle } from "react-icons/bs";
 import { signInWithEmailAndPassword, signOut } from "firebase/auth";
 import { FormikHelpers } from "formik";
 import { auth } from "../../../../firebase/firebaseConfig";
@@ -49,8 +49,7 @@ const Login: NextPage<Props> = ({
     console.log(error);
   }
 
-  const { signInWithGoogle, signInWithFacebook, signInWithApple } =
-    useOAuthSignIn();
+  const { signInWithGoogle } = useOAuthSignIn();
 
   // Validation schema using Yup
   const validationSchema = Yup.object().shape({

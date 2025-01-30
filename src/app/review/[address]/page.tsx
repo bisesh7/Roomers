@@ -77,7 +77,7 @@ const ITEMS_PER_PAGE = 10;
 
 const Page = ({}) => {
   const auth = getAuth();
-  const [user, loading] = useAuthState(auth);
+  const [user] = useAuthState(auth);
 
   const [property, setProperty] = useState<Property | null>(null);
   const [reviews, setReviews] = useState<Review[]>([]);
@@ -92,7 +92,6 @@ const Page = ({}) => {
   });
   const [currentPage, setCurrentPage] = useState<number>(1);
   const searchParams = useSearchParams();
-  const [hasReviewed, setHasReviewed] = useState(false);
 
   useEffect(() => {
     const id = searchParams.get("id");
@@ -139,17 +138,6 @@ const Page = ({}) => {
   const indexOfLastReview = currentPage * ITEMS_PER_PAGE;
   const indexOfFirstReview = indexOfLastReview - ITEMS_PER_PAGE;
   const currentReviews = reviews.slice(indexOfFirstReview, indexOfLastReview);
-
-  useEffect(() => {
-    if (user && reviews.length > 0) {
-      const userHasReviewed = reviews.some(
-        (review) => review.userId === user.uid
-      );
-      setHasReviewed(userHasReviewed);
-    } else {
-      setHasReviewed(false);
-    }
-  }, [user, reviews]);
 
   return (
     <div>

@@ -106,6 +106,14 @@ interface ReviewFormValues {
   keywords?: string;
 }
 
+const initialValues: ReviewFormValues = {
+  landlordName: "",
+  propertyAddress: "",
+  overallRating: 0,
+  detailedFeedback: "",
+  keywords: "",
+};
+
 const Page = () => {
   const [reviewerName, setReviewerName] = useState<string | null>(null);
 
@@ -249,7 +257,7 @@ const Page = () => {
   // When submitting the form
   const handleSubmit = async (
     values: ReviewFormValues,
-    { resetForm, setSubmitting }: FormikHelpers<any>
+    { resetForm, setSubmitting }: FormikHelpers<ReviewFormValues>
   ) => {
     const auth = getAuth();
 
@@ -293,18 +301,9 @@ const Page = () => {
         </div>
 
         <Formik
-          initialValues={{
-            landlordName: "",
-            propertyAddress: "",
-            overallRating: 0,
-            detailedFeedback: "",
-            keywords: "",
-          }}
+          initialValues={initialValues}
           validationSchema={reviewSchema}
-          onSubmit={(values, actions) => {
-            handleSubmit(values, actions);
-            actions.setSubmitting(false);
-          }}
+          onSubmit={handleSubmit}
         >
           {({ handleSubmit, touched, errors, setFieldValue }) => (
             <Form noValidate onSubmit={handleSubmit} className="mt-4">

@@ -15,12 +15,10 @@ import classNames from "classnames";
 import common from "../../styles/common.module.scss";
 import searchBarStyles from "../../styles/searchbar.module.scss";
 import styles from "../../styles/auth.module.scss";
-import { BsApple, BsFacebook, BsGoogle } from "react-icons/bs";
+import { BsGoogle } from "react-icons/bs";
 import {
   createUserWithEmailAndPassword,
-  GoogleAuthProvider,
   sendEmailVerification,
-  signInWithPopup,
   signOut,
   updateProfile,
 } from "firebase/auth";
@@ -63,8 +61,7 @@ const Register: NextPage<Props> = ({
     ),
   });
 
-  const { signInWithGoogle, signInWithFacebook, signInWithApple } =
-    useOAuthSignIn();
+  const { signInWithGoogle } = useOAuthSignIn();
 
   const createUser = async (
     email: string,

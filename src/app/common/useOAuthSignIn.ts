@@ -1,4 +1,5 @@
 // hooks/useOAuthSignIn.ts
+import { FirebaseError } from "firebase/app";
 import { auth } from "../../../firebase/firebaseConfig";
 import {
   GoogleAuthProvider,
@@ -22,8 +23,18 @@ export const useOAuthSignIn = () => {
       console.log(`Signed in with ${provider.providerId}:`, result.user);
       return { success: true };
     } catch (error: any) {
-      console.error(`Error with ${provider.providerId} sign-in:`, error);
-      return { success: false, message: error.message };
+      // Use FirebaseError for more accurate error handling
+      if (error instanceof FirebaseError) {
+        console.error(
+          `Error with ${provider.providerId} sign-in:`,
+          error.message
+        );
+        return { success: false, message: error.message };
+      } else {
+        // Fallback for unexpected error types
+        console.error("An unknown error occurred during sign-in", error);
+        return { success: false, message: "An unexpected error occurred." };
+      }
     }
   };
 
