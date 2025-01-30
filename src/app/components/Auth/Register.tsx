@@ -106,9 +106,8 @@ const Register: NextPage<Props> = ({
   return (
     <>
       <Button
-        variant="primary"
+        variant="dark"
         className={classNames({
-          [common.skyblue]: true,
           [common.medium]: true,
           [common.button]: true,
         })}
