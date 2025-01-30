@@ -5,8 +5,6 @@ import classNames from "classnames";
 import { Col, Container, ProgressBar, Row } from "react-bootstrap";
 import { FaAngleDown } from "react-icons/fa6";
 import styles from "../../styles/review.module.scss";
-import profileStyles from "../../styles/profile.module.scss";
-import Image from "next/image";
 import PaginationComponent from "@/app/components/Common/Pagination";
 import PaginationStyles from "../../styles/pagination.module.scss";
 import Footer from "@/app/components/Common/Footer";
@@ -22,7 +20,6 @@ import {
   where,
 } from "firebase/firestore";
 import { db } from "../../../../firebase/firebaseConfig";
-import ReviewInput from "./ReviewInput";
 import { getAuth } from "firebase/auth";
 import { useAuthState } from "react-firebase-hooks/auth";
 interface Property {
@@ -143,8 +140,6 @@ const Page = ({}) => {
   const indexOfFirstReview = indexOfLastReview - ITEMS_PER_PAGE;
   const currentReviews = reviews.slice(indexOfFirstReview, indexOfLastReview);
 
-  const [experience, setExperience] = useState<string>("");
-
   useEffect(() => {
     if (user && reviews.length > 0) {
       const userHasReviewed = reviews.some(
@@ -246,25 +241,6 @@ const Page = ({}) => {
             <p className="text-muted">{review.detailedFeedback}</p>
           </div>
         ))}
-
-        {user && !loading && !hasReviewed && (
-          <div className="d-flex mt-4">
-            <Image
-              src="https://picsum.photos/200"
-              alt="Profile Pic"
-              width={200}
-              height={200}
-              className={classNames(profileStyles.roundPic)}
-            />
-            <ReviewInput
-              handleSearch={() => {}}
-              placeholder="Share your experience with the landlord"
-              query={experience}
-              setQuery={setExperience}
-              className="ms-2"
-            />
-          </div>
-        )}
 
         <PaginationComponent
           totalItems={reviews.length}

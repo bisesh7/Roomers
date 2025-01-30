@@ -18,12 +18,15 @@ import styles from "../../styles/auth.module.scss";
 import { BsApple, BsFacebook, BsGoogle } from "react-icons/bs";
 import {
   createUserWithEmailAndPassword,
+  GoogleAuthProvider,
   sendEmailVerification,
+  signInWithPopup,
   signOut,
   updateProfile,
 } from "firebase/auth";
 import { doc, setDoc } from "firebase/firestore"; // Import Firestore if using Firestore to store user data
 import { auth, db } from "../../../../firebase/firebaseConfig";
+import { useOAuthSignIn } from "@/app/common/useOAuthSignIn";
 
 interface Props {
   value: string;
@@ -59,6 +62,9 @@ const Register: NextPage<Props> = ({
       "You must accept the Privacy Policy"
     ),
   });
+
+  const { signInWithGoogle, signInWithFacebook, signInWithApple } =
+    useOAuthSignIn();
 
   const createUser = async (
     email: string,
@@ -256,22 +262,18 @@ const Register: NextPage<Props> = ({
                 </div>
                 <Row className="mt-4">
                   <Col
-                    className={classNames("border p-2 ps-3 me-2", styles.oAuth)}
-                  >
-                    <BsFacebook className="mb-1" />
-                    <span className={classNames(common.medium)}> Facebook</span>
-                  </Col>
-                  <Col
-                    className={classNames("border p-2 ps-3 me-2", styles.oAuth)}
+                    className={classNames(
+                      "border p-2 ps-3 me-2",
+                      styles.oAuth,
+                      "text-center"
+                    )}
+                    onClick={signInWithGoogle}
                   >
                     <BsGoogle className="mb-1" />
-                    <span className={classNames(common.medium)}> Google</span>
-                  </Col>
-                  <Col
-                    className={classNames("border p-2 ps-3 me-2", styles.oAuth)}
-                  >
-                    <BsApple className="mb-1" />
-                    <span className={classNames(common.medium)}> Apple</span>
+                    <span className={classNames(common.medium)}>
+                      {" "}
+                      Sign In With Google Instead
+                    </span>
                   </Col>
                 </Row>
               </Form>

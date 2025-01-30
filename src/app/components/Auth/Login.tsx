@@ -21,6 +21,7 @@ import { BsApple, BsFacebook, BsGoogle } from "react-icons/bs";
 import { signInWithEmailAndPassword, signOut } from "firebase/auth";
 import { FormikHelpers } from "formik";
 import { auth } from "../../../../firebase/firebaseConfig";
+import { useOAuthSignIn } from "@/app/common/useOAuthSignIn";
 
 interface Props {
   className: string;
@@ -47,6 +48,9 @@ const Login: NextPage<Props> = ({
   if (error) {
     console.log(error);
   }
+
+  const { signInWithGoogle, signInWithFacebook, signInWithApple } =
+    useOAuthSignIn();
 
   // Validation schema using Yup
   const validationSchema = Yup.object().shape({
@@ -213,20 +217,23 @@ const Login: NextPage<Props> = ({
               >
                 Sign up
               </span>
-            </small>
+            </small>{" "}
+            <br />
           </div>
           <Row className="mt-4">
-            <Col className={classNames("border p-2 ps-3 me-2", styles.oAuth)}>
-              <BsFacebook className="mb-1" />
-              <span className={classNames(common.medium)}> Facebook</span>
-            </Col>
-            <Col className={classNames("border p-2 ps-3 me-2", styles.oAuth)}>
+            <Col
+              className={classNames(
+                "border p-2 ps-3 me-2",
+                styles.oAuth,
+                "text-center"
+              )}
+              onClick={signInWithGoogle}
+            >
               <BsGoogle className="mb-1" />
-              <span className={classNames(common.medium)}> Google</span>
-            </Col>
-            <Col className={classNames("border p-2 ps-3 me-2", styles.oAuth)}>
-              <BsApple className="mb-1" />
-              <span className={classNames(common.medium)}> Apple</span>
+              <span className={classNames(common.medium)}>
+                {" "}
+                Sign In With Google Instead
+              </span>
             </Col>
           </Row>
         </Modal.Body>
