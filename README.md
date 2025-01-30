@@ -105,27 +105,6 @@ For a full list of dependencies and devDependencies, see [package.json](./packag
 
 ---
 
-## Folder Structure
-
-```
-roomers-front/
-│
-├─ public/                   # Static assets
-├─ pages/ or app/           # Next.js pages / routes
-├─ components/              # Reusable React components
-├─ firebase/                # Firebase config
-├─ styles/                  # Global / modular scss styles
-├─ hooks/                   # Custom React hooks
-├─ .eslintrc.js             # ESLint configuration
-├─ package.json
-├─ README.md                # This file
-└─ tsconfig.json            # TypeScript configuration
-```
-
-> **Note**: Adjust based on your actual file structure if it differs.
-
----
-
 ## Contributing
 
 1. **Fork** the repository.
