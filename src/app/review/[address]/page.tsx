@@ -77,7 +77,6 @@ const ITEMS_PER_PAGE = 10;
 
 const Page = ({}) => {
   const auth = getAuth();
-  const [user] = useAuthState(auth);
 
   const [property, setProperty] = useState<Property | null>(null);
   const [reviews, setReviews] = useState<Review[]>([]);

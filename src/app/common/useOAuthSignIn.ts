@@ -22,7 +22,7 @@ export const useOAuthSignIn = () => {
       const result = await signInWithPopup(auth, provider);
       console.log(`Signed in with ${provider.providerId}:`, result.user);
       return { success: true };
-    } catch (error: any) {
+    } catch (error: unknown) {
       // Use FirebaseError for more accurate error handling
       if (error instanceof FirebaseError) {
         console.error(
