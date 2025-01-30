@@ -206,7 +206,11 @@ const Page = () => {
   async function uploadImages(files: FileWithPreview[]): Promise<string[]> {
     const storage = getStorage();
     const uploadPromises = files.map(async (file) => {
-      const storageRef = ref(storage, `reviews/${file.name}`);
+      // Encode the filename and add UUID to prevent conflicts
+      const encodedFileName = encodeURIComponent(file.name);
+      const uniqueFileName = `${Date.now()}_${encodedFileName}`;
+
+      const storageRef = ref(storage, `reviews/${uniqueFileName}`);
       const snapshot = await uploadBytes(storageRef, file.file);
       return getDownloadURL(snapshot.ref);
     });
@@ -218,9 +222,13 @@ const Page = () => {
     values: ReviewFormValues,
     imageUrls: string[]
   ): Promise<void> {
+    const auth = getAuth();
+    if (!auth.currentUser) throw new Error("User not authenticated");
+
     try {
       const propertyRef = await getPropertyRef(values.propertyAddress);
       await addDoc(collection(db, "reviews"), {
+        userId: auth.currentUser.uid,
         landlordName: values.landlordName || "",
         propertyAddress: propertyRef,
         overallRating: values.overallRating,
@@ -239,29 +247,35 @@ const Page = () => {
   // When submitting the form
   const handleSubmit = async (
     values: ReviewFormValues,
-    {
-      resetForm,
-      setSubmitting,
-    }: FormikHelpers<{
-      landlordName: string;
-      propertyAddress: string;
-      overallRating: number;
-      detailedFeedback: string;
-      keywords: string;
-    }>
+    { resetForm, setSubmitting }: FormikHelpers<any>
   ) => {
-    // First, upload the images and get their URLs
-    const imageUrls = await uploadImages(
-      files.map((file) => ({ file: file.file, name: file.name, preview: "" }))
-    );
+    const auth = getAuth();
 
-    // Then, post the review data with image URLs to Firestore
-    await postReviewToFirestore(values, imageUrls);
+    // Ensure user is authenticated
+    if (!auth.currentUser) {
+      alert("Please sign in to submit a review");
+      return;
+    }
 
-    resetForm();
-    setFiles([]);
-    setStarHoverNumber(0);
-    setSubmitting(false);
+    try {
+      const imageUrls = await uploadImages(
+        files.map((file) => ({
+          file: file.file,
+          name: file.name,
+          preview: "",
+        }))
+      );
+
+      await postReviewToFirestore(values, imageUrls);
+      resetForm();
+      setFiles([]);
+      setStarHoverNumber(0);
+    } catch (error) {
+      console.error("Submission error:", error);
+      alert("Error submitting review. Please try again.");
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   return (

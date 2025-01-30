@@ -79,6 +79,7 @@ const Register: NextPage<Props> = ({
       sendEmailVerification(user)
         .then(() => {
           console.log("Verification email sent.");
+          handleCloseSignUp(); // Close the modal on successful registration
         })
         .catch((error) => {
           console.error("Error sending email verification", error);
@@ -94,7 +95,6 @@ const Register: NextPage<Props> = ({
       });
 
       console.log("User registered:", user);
-      handleCloseSignUp(); // Close the modal on successful registration
     } catch (error) {
       console.error("Error signing up:", error);
     }
