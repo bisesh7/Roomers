@@ -20,7 +20,6 @@ import {
   where,
 } from "firebase/firestore";
 import { db } from "../../../../firebase/firebaseConfig";
-import { getAuth } from "firebase/auth";
 interface Property {
   address: string;
 }
