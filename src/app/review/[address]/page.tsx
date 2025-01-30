@@ -21,7 +21,6 @@ import {
 } from "firebase/firestore";
 import { db } from "../../../../firebase/firebaseConfig";
 import { getAuth } from "firebase/auth";
-import { useAuthState } from "react-firebase-hooks/auth";
 interface Property {
   address: string;
 }
@@ -76,8 +75,6 @@ const calculateAverageRating = (reviews: Review[]): number => {
 const ITEMS_PER_PAGE = 10;
 
 const Page = ({}) => {
-  const auth = getAuth();
-
   const [property, setProperty] = useState<Property | null>(null);
   const [reviews, setReviews] = useState<Review[]>([]);
   const [landlordName, setLandlordName] = useState<string>("");
